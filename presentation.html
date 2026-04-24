@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Creator Skill — Secret Training</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #0c0b09;
+        --ink-raised: #14120f;
+        --bone: #f2ede2;
+        --muted: rgba(242, 237, 226, 0.58);
+        --faint: rgba(242, 237, 226, 0.28);
+        --divider: rgba(242, 237, 226, 0.12);
+        --accent: #ff5b1f;
+        --accent-dim: rgba(255, 91, 31, 0.15);
+        --serif: "Fraunces", Georgia, serif;
+        --sans: "Geist", -apple-system, sans-serif;
+        --mono: "Geist Mono", ui-monospace, monospace;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--ink);
+        color: var(--bone);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 100;
+        opacity: 0.035;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      /* Sections */
+      .section {
+        width: 100vw;
+        min-height: 100vh;
+        padding: 6vh 7vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        scroll-snap-align: start;
+        border-bottom: 1px solid var(--divider);
+        position: relative;
+      }
+      .section.top-align {
+        justify-content: flex-start;
+        padding-top: 12vh;
+      }
+
+      /* Kicker */
+      .kicker {
+        font-family: var(--mono);
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.9em;
+      }
+      .kicker::before {
+        content: "";
+        width: 1.8em;
+        height: 1px;
+        background: var(--accent);
+        display: inline-block;
+      }
+
+      /* Hero Title */
+      h1 {
+        font-family: var(--serif);
+        font-size: clamp(6rem, 16vw, 16rem);
+        font-weight: 400;
+        font-style: italic;
+        line-height: 0.88;
+        letter-spacing: -0.04em;
+        font-variation-settings: "opsz" 144;
+        margin-left: -0.06em;
+        margin-top: 1.5rem;
+      }
+      h1 .dot {
+        color: var(--accent);
+        font-style: normal;
+      }
+
+      /* Section Headline */
+      .headline {
+        margin-top: 1.4rem;
+        font-family: var(--serif);
+        font-size: clamp(2.4rem, 5.2vw, 5rem);
+        font-weight: 400;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        font-variation-settings: "opsz" 144;
+        max-width: 24ch;
+      }
+      .headline em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      /* Sub headline */
+      .sub-headline {
+        margin-top: 1.2rem;
+        font-family: var(--serif);
+        font-size: clamp(1.8rem, 3.2vw, 3rem);
+        font-weight: 400;
+        line-height: 1.12;
+        letter-spacing: -0.015em;
+        font-variation-settings: "opsz" 144;
+        max-width: 28ch;
+      }
+      .sub-headline em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      /* Body */
+      .body {
+        margin-top: 2rem;
+        max-width: 58ch;
+        font-size: clamp(1.05rem, 1.35vw, 1.4rem);
+        line-height: 1.55;
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .body strong {
+        color: var(--bone);
+        font-weight: 500;
+      }
+      .body + .body {
+        margin-top: 1rem;
+      }
+
+      /* Subtitle */
+      .subtitle {
+        margin-top: 1.2rem;
+        font-size: clamp(1.1rem, 1.6vw, 1.6rem);
+        color: var(--muted);
+        font-weight: 300;
+        max-width: 52ch;
+        line-height: 1.4;
+      }
+
+      /* Slide Number */
+      .slide-num {
+        position: absolute;
+        top: 5vh;
+        right: 7vw;
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--faint);
+        letter-spacing: 0.12em;
+      }
+      .slide-num span {
+        color: var(--bone);
+      }
+
+      /* Footer Mark */
+      .footer-mark {
+        position: absolute;
+        bottom: 5vh;
+        left: 7vw;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--faint);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      /* Pillars */
+      .pillars {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid var(--divider);
+        margin-top: 3.5rem;
+        width: 100%;
+      }
+      .pillar {
+        padding: 2.2rem 2rem 2rem 0;
+        border-right: 1px solid var(--divider);
+      }
+      .pillar:last-child {
+        border-right: none;
+      }
+      .pillar:not(:first-child) {
+        padding-left: 2rem;
+      }
+      .pillar-num {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--accent);
+        letter-spacing: 0.14em;
+      }
+      .pillar-name {
+        margin-top: 0.8rem;
+        font-family: var(--serif);
+        font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+        font-weight: 500;
+        font-variation-settings: "opsz" 144;
+      }
+      .pillar-body {
+        margin-top: 0.6rem;
+        font-size: clamp(0.92rem, 1.1vw, 1.1rem);
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.5;
+      }
+
+      /* Case Rows */
+      .case-rows {
+        margin-top: 3rem;
+        width: 100%;
+      }
+      .case-row {
+        display: grid;
+        grid-template-columns: 4rem 1fr 2fr;
+        gap: 2rem;
+        align-items: baseline;
+        padding: 1.6vh 0;
+        border-top: 1px solid var(--divider);
+      }
+      .case-row:last-child {
+        border-bottom: 1px solid var(--divider);
+      }
+      .case-num {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--accent);
+        letter-spacing: 0.12em;
+      }
+      .case-title {
+        font-family: var(--serif);
+        font-size: clamp(1.3rem, 2vw, 1.9rem);
+        font-weight: 400;
+        font-variation-settings: "opsz" 144;
+      }
+      .case-desc {
+        font-size: clamp(0.92rem, 1.1vw, 1.1rem);
+        color: var(--muted);
+        line-height: 1.5;
+        font-weight: 300;
+      }
+
+      /* Code Box */
+      .code-box {
+        margin-top: 2.5rem;
+        padding: 2rem;
+        border: 1px solid var(--divider);
+        background: var(--ink-raised);
+        font-family: var(--mono);
+        font-size: clamp(0.85rem, 1.05vw, 1rem);
+        line-height: 1.55;
+        color: var(--bone);
+        max-width: 52ch;
+        border-radius: 3px;
+      }
+      .code-box.highlight {
+        border-color: var(--accent);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 91, 31, 0.05) 0%,
+          rgba(255, 91, 31, 0.02) 100%
+        );
+      }
+      .code-box .accent {
+        color: var(--accent);
+      }
+      .code-box .muted {
+        color: var(--faint);
+      }
+
+      /* Flow Steps */
+      .flow {
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        max-width: 72ch;
+      }
+      .flow-step {
+        display: grid;
+        grid-template-columns: 5rem 1fr;
+        gap: 1.5rem;
+        align-items: start;
+        padding: 2rem 0;
+        border-top: 1px solid var(--divider);
+      }
+      .flow-step:last-child {
+        border-bottom: 1px solid var(--divider);
+      }
+      .flow-num {
+        font-family: var(--mono);
+        font-size: 1.4rem;
+        color: var(--accent);
+        letter-spacing: 0.08em;
+        padding-top: 0.15rem;
+      }
+      .flow-content {
+      }
+      .flow-title {
+        font-family: var(--serif);
+        font-size: clamp(1.4rem, 2.2vw, 2rem);
+        font-weight: 400;
+        font-variation-settings: "opsz" 144;
+      }
+      .flow-desc {
+        margin-top: 0.5rem;
+        font-size: clamp(0.92rem, 1.1vw, 1.1rem);
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.5;
+      }
+
+      /* Check Grid */
+      .check-grid {
+        margin-top: 3rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border-top: 1px solid var(--divider);
+        width: 100%;
+      }
+      .check-item {
+        padding: 2rem 2rem 2rem 0;
+        border-bottom: 1px solid var(--divider);
+        border-right: 1px solid var(--divider);
+      }
+      .check-item:nth-child(2n) {
+        border-right: none;
+        padding-left: 2rem;
+        padding-right: 0;
+      }
+      .check-label {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--accent);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .check-name {
+        margin-top: 0.6rem;
+        font-family: var(--serif);
+        font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+        font-weight: 400;
+        font-variation-settings: "opsz" 144;
+      }
+      .check-desc {
+        margin-top: 0.4rem;
+        font-size: clamp(0.88rem, 1vw, 1rem);
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.45;
+      }
+
+      /* Nav dots */
+      .nav-hint {
+        position: fixed;
+        bottom: 3vh;
+        right: 7vw;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--faint);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        z-index: 50;
+      }
+
+      /* Spacer */
+      .spacer {
+        margin-top: 2.5rem;
+      }
+      .spacer-lg {
+        margin-top: 4rem;
+      }
+
+      /* Print / PDF styles */
+      @media print {
+        html {
+          scroll-snap-type: none;
+        }
+        body::before {
+          display: none;
+        }
+        .nav-hint {
+          display: none;
+        }
+        .section {
+          min-height: 100vh;
+          page-break-after: always;
+          page-break-inside: avoid;
+          border-bottom: none;
+        }
+        .section:last-child {
+          page-break-after: avoid;
+        }
+        .slide-num,
+        .footer-mark {
+          position: absolute;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-hint">scroll to advance</div>
+
+    <!-- SLIDE 01 — Title -->
+    <section class="section">
+      <div class="slide-num">01 / <span>09</span></div>
+      <span class="kicker">Secret training</span>
+      <h1>Voice<span class="dot">.</span></h1>
+      <p class="subtitle">
+        A content creation system that writes in your voice. Not AI voice.
+        Yours.
+      </p>
+      <div class="footer-mark">Content Creator Skill for Claude Code</div>
+    </section>
+
+    <!-- SLIDE 02 — The Problem -->
+    <section class="section top-align">
+      <div class="slide-num">02 / <span>09</span></div>
+      <span class="kicker">The problem</span>
+      <h2 class="headline">Every session starts from <em>zero</em>.</h2>
+      <p class="body">
+        You open Claude Code. You start writing content. And every single time,
+        you have to explain who you are, how you sound, what your audience cares
+        about, and which patterns work.
+      </p>
+      <p class="body">
+        The output sounds like AI wrote it. Because AI doesn't know you yet.
+      </p>
+      <p class="body"><strong>This skill fixes that permanently.</strong></p>
+      <div class="footer-mark">The problem</div>
+    </section>
+
+    <!-- SLIDE 03 — What You Get -->
+    <section class="section top-align">
+      <div class="slide-num">03 / <span>09</span></div>
+      <span class="kicker">What you get</span>
+      <h2 class="headline">Three tools that work <em>together</em>.</h2>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div class="pillar-name">/setup-voice</div>
+          <p class="pillar-body">
+            One-time setup. Interviews you or analyzes your best content to
+            build a voice profile that persists across every session.
+          </p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div class="pillar-name">/content-create</div>
+          <p class="pillar-body">
+            The main workflow. Posts, emails, articles. Approval gates at every
+            step. Proven copywriting principles baked in.
+          </p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div class="pillar-name">/humanize</div>
+          <p class="pillar-body">
+            Standalone cleanup. Paste any text and it strips out every AI
+            writing pattern before anyone sees it.
+          </p>
+        </div>
+      </div>
+      <div class="footer-mark">Three tools</div>
+    </section>
+
+    <!-- SLIDE 04 — Voice Profile Setup -->
+    <section class="section top-align">
+      <div class="slide-num">04 / <span>09</span></div>
+      <span class="kicker">Step one</span>
+      <h2 class="headline">It learns how you <em>sound</em>.</h2>
+      <p class="subtitle">
+        Two ways to build your voice profile. Pick whichever fits.
+      </p>
+
+      <div class="pillars">
+        <div class="pillar" style="border-right: 1px solid var(--divider)">
+          <div class="pillar-num">A</div>
+          <div class="pillar-name">Paste your content</div>
+          <p class="pillar-body">
+            Share 5-10 posts or emails you're proud of. The system analyzes your
+            tone, rhythm, vocabulary, hooks, and personality traits.
+          </p>
+        </div>
+        <div class="pillar" style="border-right: 1px solid var(--divider)">
+          <div class="pillar-num">B</div>
+          <div class="pillar-name">Answer 8 questions</div>
+          <p class="pillar-body">
+            Starting from scratch? The system asks about your niche, audience,
+            tone preferences, and the creators you admire. Takes about 10
+            minutes.
+          </p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">C</div>
+          <div class="pillar-name">Both</div>
+          <p class="pillar-body">
+            Paste content and answer questions. The analysis plus your input
+            creates the most accurate profile.
+          </p>
+        </div>
+      </div>
+      <div class="footer-mark">Voice setup</div>
+    </section>
+
+    <!-- SLIDE 05 — The Workflow -->
+    <section class="section top-align">
+      <div class="slide-num">05 / <span>09</span></div>
+      <span class="kicker">The workflow</span>
+      <h2 class="headline">You approve every <em>step</em>.</h2>
+
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-num">01</div>
+          <div class="flow-content">
+            <div class="flow-title">Brief intake</div>
+            <div class="flow-desc">
+              Tell it your topic, audience, platform, and goal. It asks
+              clarifying questions about angle and tone.
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">02</div>
+          <div class="flow-content">
+            <div class="flow-title">Hook generation</div>
+            <div class="flow-desc">
+              10-20 hooks scored on 7 criteria. Curiosity, specificity, voice
+              compliance. You pick the one that hits.
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">03</div>
+          <div class="flow-content">
+            <div class="flow-title">Full content draft</div>
+            <div class="flow-desc">
+              Writes the post, email, or article in your voice. Runs two quality
+              checks automatically before you see it.
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">04</div>
+          <div class="flow-content">
+            <div class="flow-title">Organized output</div>
+            <div class="flow-desc">
+              Everything saved to clean folders. Hooks, brief, and final
+              content. Ready to publish.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-mark">Content workflow</div>
+    </section>
+
+    <!-- SLIDE 06 — Quality Checks -->
+    <section class="section top-align">
+      <div class="slide-num">06 / <span>09</span></div>
+      <span class="kicker">Quality checks</span>
+      <h2 class="headline">Two passes catch what you'd <em>miss</em>.</h2>
+      <p class="body">
+        Every piece of content runs through both checks before you see a single
+        word. The AI patterns get stripped out automatically.
+      </p>
+
+      <div class="check-grid">
+        <div class="check-item">
+          <div class="check-label">Check 01</div>
+          <div class="check-name">Slippery slope</div>
+          <div class="check-desc">
+            Every sentence pulls the reader into the next. No isolated
+            paragraphs. Bridge sentences between every idea shift.
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-label">Check 02</div>
+          <div class="check-name">Negative parallelisms</div>
+          <div class="check-desc">
+            "No X. No Y. No Z." gets caught and rewritten into natural sentences
+            every time.
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-label">Check 03</div>
+          <div class="check-name">AI vocabulary</div>
+          <div class="check-desc">
+            "Game-changer", "seamless", "unlock", "revolutionary" and 9 other AI
+            words get stripped on sight.
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-label">Check 04</div>
+          <div class="check-name">Hedge language</div>
+          <div class="check-desc">
+            "Maybe", "might", "potentially", "I think" all get removed. Your
+            content states facts, not opinions.
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-label">Check 05</div>
+          <div class="check-name">Rhythm variation</div>
+          <div class="check-desc">
+            Same-length sentences feel algorithmic. The pass varies sentence
+            length so it reads like a human wrote it.
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-label">Check 06</div>
+          <div class="check-name">+ 6 more rules</div>
+          <div class="check-desc">
+            Em dash overuse, rule of three, sycophantic tone, fragment openers,
+            duplicate subjects, bolded headers.
+          </div>
+        </div>
+      </div>
+      <div class="footer-mark">Quality system</div>
+    </section>
+
+    <!-- SLIDE 07 — Copywriting Principles -->
+    <section class="section top-align">
+      <div class="slide-num">07 / <span>09</span></div>
+      <span class="kicker">Built-in framework</span>
+      <h2 class="headline">
+        Sultanic copywriting principles come <em>loaded</em>.
+      </h2>
+      <p class="body">
+        Proven mechanics from Alen Sultanic baked into every piece of content
+        the skill creates. You don't need to learn them. The skill applies them
+        for you.
+      </p>
+
+      <div class="case-rows">
+        <div class="case-row">
+          <div class="case-num">01</div>
+          <div class="case-title">4-line block rule</div>
+          <div class="case-desc">
+            Never more than 4 lines per paragraph. The eye scans for density
+            before the brain reads for meaning.
+          </div>
+        </div>
+        <div class="case-row">
+          <div class="case-num">02</div>
+          <div class="case-title">"Install" tweak</div>
+          <div class="case-desc">
+            Replace "learn" or "discover" with "install." It implies zero effort
+            and instant utility.
+          </div>
+        </div>
+        <div class="case-row">
+          <div class="case-num">03</div>
+          <div class="case-title">"In 2026" tweak</div>
+          <div class="case-desc">
+            Add the current year to headlines to double conversions. Answers the
+            question: does this still work?
+          </div>
+        </div>
+        <div class="case-row">
+          <div class="case-num">04</div>
+          <div class="case-title">"Different" tweak</div>
+          <div class="case-desc">
+            In saturated markets, don't promise better. Promise different.
+            Reframes the entire category.
+          </div>
+        </div>
+        <div class="case-row">
+          <div class="case-num">05</div>
+          <div class="case-title">Away to Towards</div>
+          <div class="case-desc">
+            Start with pain. Shift to aspiration in the final 20-30%. The arc
+            that makes people buy and stay.
+          </div>
+        </div>
+      </div>
+      <div class="footer-mark">Sultanic principles</div>
+    </section>
+
+    <!-- SLIDE 08 — Installation -->
+    <section class="section">
+      <div class="slide-num">08 / <span>09</span></div>
+      <span class="kicker">Installation</span>
+      <h2 class="headline">One sentence. That's <em>it</em>.</h2>
+
+      <p class="body">Paste this into Claude Code:</p>
+
+      <div class="code-box highlight">
+        Install the content-creator plugin from<br />
+        <span class="accent"
+          >github.com/tomaibuilder/content-creator-skill</span
+        >
+      </div>
+
+      <p class="body" style="margin-top: 2.5rem">
+        Claude Code installs the plugin automatically. Then run
+        <strong>/setup-voice</strong> to build your voice profile.
+      </p>
+      <p class="body">
+        That's the entire setup. Your voice profile persists across every
+        session. Updates are automatic. You're ready to create.
+      </p>
+
+      <div class="footer-mark">Get started</div>
+    </section>
+
+    <!-- SLIDE 09 — Close -->
+    <section class="section">
+      <div class="slide-num">09 / <span>09</span></div>
+      <span class="kicker">What changes</span>
+      <h2 class="headline">Content that sounds like <em>you</em> wrote it.</h2>
+      <p class="subtitle">
+        Because the system learned your voice, applies proven copywriting
+        mechanics, and strips out every AI pattern before you see the draft.
+      </p>
+
+      <div class="spacer-lg"></div>
+
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div class="pillar-name">Your voice</div>
+          <p class="pillar-body">
+            Not generic. Not corporate. Not "AI-sounding." Your actual patterns,
+            your vocabulary, your rhythm.
+          </p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div class="pillar-name">Proven mechanics</div>
+          <p class="pillar-body">
+            Sultanic principles handle the persuasion. Slippery slope keeps
+            readers moving. You handle the ideas.
+          </p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div class="pillar-name">You stay in control</div>
+          <p class="pillar-body">
+            Approval gates at every step. Nothing publishes without your
+            sign-off. The skill proposes, you decide.
+          </p>
+        </div>
+      </div>
+
+      <p class="body" style="margin-top: 3rem">
+        <strong>github.com/tomaibuilder/content-creator-skill</strong>
+      </p>
+      <div class="footer-mark">Content Creator Skill</div>
+    </section>
+  </body>
+</html>

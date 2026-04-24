@@ -12,13 +12,21 @@ Three tools that work together:
 
 ## Installation
 
+Paste this into Claude Code:
+
+```
+Install the content-creator plugin from github.com/tomaibuilder/content-creator-skill
+```
+
+Claude Code will handle the rest. Once installed, run `/setup-voice` to build your voice profile.
+
+**Alternative (manual install):**
+
 ```bash
 git clone https://github.com/tomaibuilder/content-creator-skill.git
 cd content-creator-skill
 ./install.sh
 ```
-
-That's it. Three commands.
 
 ## Quick Start
 

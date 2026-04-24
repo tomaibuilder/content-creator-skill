@@ -1,0 +1,15 @@
+{
+  "name": "content-creator-skill",
+  "owner": {
+    "name": "Tom Crawshaw",
+    "url": "https://github.com/tomaibuilder"
+  },
+  "plugins": [
+    {
+      "name": "content-creator",
+      "source": "./",
+      "description": "Content creation system that writes in your voice with built-in copywriting principles and AI pattern detection.",
+      "version": "1.0.0"
+    }
+  ]
+}

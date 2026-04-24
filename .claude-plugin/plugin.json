@@ -1,0 +1,12 @@
+{
+  "name": "content-creator",
+  "version": "1.0.0",
+  "description": "Content creation system that writes in your voice with built-in copywriting principles and AI pattern detection.",
+  "author": {
+    "name": "Tom Crawshaw",
+    "url": "https://github.com/tomaibuilder"
+  },
+  "repository": "https://github.com/tomaibuilder/content-creator-skill",
+  "license": "MIT",
+  "keywords": ["content", "copywriting", "voice", "humanizer", "social-media"]
+}
